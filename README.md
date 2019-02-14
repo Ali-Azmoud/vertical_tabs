@@ -31,6 +31,8 @@ VerticalTabs(
   
 ```
 
+<hr>
+
 
 ![](vertical-tab-intro.gif)
 
