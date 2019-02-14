@@ -15,6 +15,9 @@ class Home extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Container(
+
+
+
                   child: VerticalTabs(
                     tabsWidth: 150,
                     tabs: <Tab>[
@@ -70,6 +73,9 @@ class Home extends StatelessWidget {
                       ),
                     ],
                   ),
+
+
+
                 ),
               ),
 

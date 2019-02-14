@@ -1,8 +1,8 @@
 name: vertical_tabs
-description: A vertical tabs package for flutter framework
+description: A vertical tabs package for flutter framework.
 version: 0.1.0
 author: Ali Azmoude <ali.azmoude@gmail.com>
-homepage:
+homepage: https://github.com/Ali-Azmoud/vertical_tabs
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// A vertical tab widget for flutter
 class VerticalTabs extends StatefulWidget {
   final Key key;
   final double tabsWidth;
@@ -60,7 +61,7 @@ class _VerticalTabsState extends State<VerticalTabs>
 
   @override
   void initState() {
-    for (Tab widget in widget.tabs) {
+    for (int i = 0; i < widget.tabs.length; i++) {
       animationControllers.add(AnimationController(
         duration: const Duration(milliseconds: 400),
         vsync: this,
@@ -162,9 +163,6 @@ class _VerticalTabsState extends State<VerticalTabs>
                               Expanded(
                                 child: Container(
                                   alignment: alignment,
-
-//                                        color: Color(0xfff2f2f2),
-//                                    color: Colors.blue,
                                   padding: EdgeInsets.all(5),
                                   child: child,
                                 ),
