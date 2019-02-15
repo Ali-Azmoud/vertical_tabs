@@ -37,7 +37,7 @@ class VerticalTabs extends StatefulWidget {
       this.changePageCurve = Curves.easeInOut,
       this.changePageDuration = const Duration(milliseconds: 300),
       this.tabsShadowColor = Colors.black54,
-      this.tabsElevation = 0.0})
+      this.tabsElevation = 2.0})
       : assert(
             tabs != null && contents != null && tabs.length == contents.length),
         super(key: key);
@@ -125,7 +125,7 @@ class _VerticalTabsState extends State<VerticalTabs>
                                       ],
                                     )
                                   : Container(),
-                              (tab.text != null) ? tab.text : Container(),
+                              (tab.text != null) ? Text(tab.text) : Container(),
                             ],
                           );
                         }
