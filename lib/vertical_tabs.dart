@@ -19,6 +19,7 @@ class VerticalTabs extends StatefulWidget {
   final Curve changePageCurve;
   final Color tabsShadowColor;
   final double tabsElevation;
+  final Color backgroundColor;
 
   VerticalTabs(
       {this.key,
@@ -37,7 +38,8 @@ class VerticalTabs extends StatefulWidget {
       this.changePageCurve = Curves.easeInOut,
       this.changePageDuration = const Duration(milliseconds: 300),
       this.tabsShadowColor = Colors.black54,
-      this.tabsElevation = 2.0})
+      this.tabsElevation = 2.0,
+      this.backgroundColor})
       : assert(
             tabs != null && contents != null && tabs.length == contents.length),
         super(key: key);
@@ -97,6 +99,7 @@ class _VerticalTabsState extends State<VerticalTabs>
               children: <Widget>[
                 Material(
                   child: Container(
+                    color: widget.backgroundColor ?? Theme.of(context).canvasColor,
                     width: widget.tabsWidth,
                     child: ListView.builder(
                       itemExtent: widget.itemExtent,
