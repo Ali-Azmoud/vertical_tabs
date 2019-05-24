@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
+class VTab {
+  Tab tab;
+  bool noEffect;
+  VTab(this.tab, {this.noEffect = false});
+}
+
 /// A vertical tab widget for flutter
 class VerticalTabs extends StatefulWidget {
   final Key key;
   final double tabsWidth;
   final double itemExtent;
   final double indicatorWidth;
-  final List<Tab> tabs;
+  final List<VTab> tabs;
   final List<Widget> contents;
   final TextDirection direction;
   final Color indicatorColor;
@@ -41,7 +47,7 @@ class VerticalTabs extends StatefulWidget {
       this.tabsElevation = 2.0,
       this.backgroundColor})
       : assert(
-            tabs != null && contents != null && tabs.length == contents.length),
+            tabs != null && contents != null && tabs.where((t)=>!t.noEffect).length == contents.length),
         super(key: key);
 
   @override
@@ -105,7 +111,7 @@ class _VerticalTabsState extends State<VerticalTabs>
                       itemExtent: widget.itemExtent,
                       itemCount: widget.tabs.length,
                       itemBuilder: (context, index) {
-                        Tab tab = widget.tabs[index];
+                        Tab tab = widget.tabs[index].tab;
 
                         Alignment alignment = Alignment.centerLeft;
                         if (widget.direction == TextDirection.rtl) {
@@ -134,6 +140,43 @@ class _VerticalTabsState extends State<VerticalTabs>
                         }
 
                         Color itemBGColor = widget.unselectedTabBackgroundColor;
+
+
+                        Widget tabContent = Container(
+                          decoration: BoxDecoration(
+                            color: itemBGColor,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              ScaleTransition(
+                                child: Container(
+                                  width: widget.indicatorWidth,
+                                  height: widget.itemExtent,
+                                  color: widget.indicatorColor,
+                                ),
+                                scale: Tween(begin: 0.0, end: 1.0).animate(
+                                  new CurvedAnimation(
+                                    parent: animationControllers[index],
+                                    curve: Curves.elasticOut,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  alignment: alignment,
+                                  padding: EdgeInsets.all(5),
+                                  child: child,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+
+                        if (widget.tabs[index].noEffect) {
+                          return tabContent;
+                        }
+
                         if (_selectedIndex == index)
                           itemBGColor = widget.selectedTabBackgroundColor;
 
@@ -148,36 +191,7 @@ class _VerticalTabsState extends State<VerticalTabs>
                                 duration: widget.changePageDuration,
                                 curve: widget.changePageCurve);
                           },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: itemBGColor,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                ScaleTransition(
-                                  child: Container(
-                                    width: widget.indicatorWidth,
-                                    height: widget.itemExtent,
-                                    color: widget.indicatorColor,
-                                  ),
-                                  scale: Tween(begin: 0.0, end: 1.0).animate(
-                                    new CurvedAnimation(
-                                      parent: animationControllers[index],
-                                      curve: Curves.elasticOut,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    alignment: alignment,
-                                    padding: EdgeInsets.all(5),
-                                    child: child,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          child: tabContent,
                         );
                       },
                     ),

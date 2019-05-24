@@ -15,15 +15,12 @@ class Home extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: Container(
-
-
-
                   child: VerticalTabs(
                     tabsWidth: 150,
-                    tabs: <Tab>[
-                      Tab(child: Text('Flutter'), icon: Icon(Icons.phone)),
-                      Tab(child: Text('Dart')),
-                      Tab(
+                    tabs: <VTab>[
+                      VTab(Tab(child: Text('Flutter'), icon: Icon(Icons.phone))),
+                      VTab(Tab(child: Text('Dart'))),
+                      VTab(Tab(
                         child: Container(
                           margin: EdgeInsets.only(bottom: 1),
                           child: Row(
@@ -34,11 +31,11 @@ class Home extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
-                      Tab(child: Text('NodeJS')),
-                      Tab(child: Text('PHP')),
-                      Tab(child: Text('HTML 5')),
-                      Tab(child: Text('CSS 3')),
+                      )),
+                      VTab(Tab(child: Text('NodeJS'))),
+                      VTab(Tab(child: Text('PHP'))),
+                      VTab(Tab(child: Text('HTML 5'))),
+                      VTab(Tab(child: Text('CSS 3'))),
                     ],
                     contents: <Widget>[
                       tabsContent('Flutter', 'Change page by scrolling content is disabled in settings. Changing contents pages is only available via tapping on tabs'),
