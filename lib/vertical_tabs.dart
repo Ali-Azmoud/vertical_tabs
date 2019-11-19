@@ -14,6 +14,8 @@ class VerticalTabs extends StatefulWidget {
   final Axis contentScrollAxis;
   final Color selectedTabBackgroundColor;
   final Color unselectedTabBackgroundColor;
+  final Color selectedTabTextColor;
+  final Color unselectedTabTextColor;
   final Color dividerColor;
   final Duration changePageDuration;
   final Curve changePageCurve;
@@ -33,6 +35,8 @@ class VerticalTabs extends StatefulWidget {
       this.contentScrollAxis = Axis.horizontal,
       this.selectedTabBackgroundColor = const Color(0x1100ff00),
       this.unselectedTabBackgroundColor = const Color(0xfff8f8f8),
+      this.selectedTabTextColor = const Color(0xFF333333),
+      this.unselectedTabTextColor = const Color(0xFF333333),
       this.dividerColor = const Color(0xffe5e5e5),
       this.changePageCurve = Curves.easeInOut,
       this.changePageDuration = const Duration(milliseconds: 300),
@@ -130,9 +134,21 @@ class _VerticalTabsState extends State<VerticalTabs>
                           );
                         }
 
-                        Color itemBGColor = widget.unselectedTabBackgroundColor;
-                        if (_selectedIndex == index)
+                        TextStyle tabDefTextStyle ;
+                        Color itemBGColor;
+                        if (_selectedIndex == index){
                           itemBGColor = widget.selectedTabBackgroundColor;
+
+                          tabDefTextStyle  =  TextStyle(
+                            color:widget.selectedTabTextColor,
+                           );
+                        }else{
+                          itemBGColor = widget.unselectedTabBackgroundColor;
+
+                          tabDefTextStyle =TextStyle(
+                            color:widget.unselectedTabTextColor,
+                           );
+                        }
 
                         return GestureDetector(
                           onTap: () {
@@ -169,7 +185,9 @@ class _VerticalTabsState extends State<VerticalTabs>
                                   child: Container(
                                     alignment: alignment,
                                     padding: EdgeInsets.all(5),
-                                    child: child,
+                                    child: DefaultTextStyle(
+                                        style:tabDefTextStyle ,
+                                        child: child),
                                   ),
                                 ),
                               ],
