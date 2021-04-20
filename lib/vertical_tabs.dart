@@ -9,8 +9,8 @@ class VerticalTabs extends StatefulWidget {
   final double? tabsWidth;
   final double? indicatorWidth;
   final IndicatorSide? indicatorSide;
-  final List<Tab?>? tabs;
-  final List<Widget?>? contents;
+  final List<Tab>? tabs;
+  final List<Widget>? contents;
   final TextDirection? direction;
   final Color? indicatorColor;
   final bool? disabledChangePageFromContentView;
@@ -106,11 +106,14 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
         color: widget.backgroundColor ?? Theme.of(context).canvasColor,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget?>[
+          children: <Widget>[
             Expanded(
               child: Row(
-                children: <Widget?>[
+                children: <Widget>[
                   Material(
+                    elevation: widget.tabsElevation!,
+                    shadowColor: widget.tabsShadowColor,
+                    shape: BeveledRectangleBorder(),
                     child: Container(
                       width: widget.tabsWidth,
                       child: ListView.builder(
@@ -124,7 +127,7 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
                           }
 
                           Widget? child;
-                          if (tab!.child != null) {
+                          if (tab.child != null) {
                             child = tab.child;
                           } else {
                             child = Container(
@@ -133,12 +136,12 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
                                   children: <Widget>[
                                     (tab.icon != null)
                                         ? Row(
-                                            children: <Widget?>[
+                                            children: <Widget>[
                                               tab.icon!,
                                               SizedBox(
                                                 width: 5,
                                               )
-                                            ] as List<Widget>,
+                                            ],
                                           )
                                         : Container(),
                                     (tab.text != null)
@@ -156,7 +159,7 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
                                 ));
                           }
 
-                          Color? itemBGColor = widget.tabBackgroundColor;
+                          var itemBGColor = widget.tabBackgroundColor;
                           if (_selectedIndex == index) itemBGColor = widget.selectedTabBackgroundColor;
 
                           double? left, right;
@@ -169,7 +172,7 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
                           }
 
                           return Stack(
-                            children: <Widget?>[
+                            children: <Widget>[
                               Positioned(
                                 top: 2,
                                 bottom: 2,
@@ -177,14 +180,14 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
                                 left: left,
                                 right: right,
                                 child: ScaleTransition(
-                                  child: Container(
-                                    color: widget.indicatorColor,
-                                  ),
                                   scale: Tween(begin: 0.0, end: 1.0).animate(
-                                    new CurvedAnimation(
+                                    CurvedAnimation(
                                       parent: animationControllers![index]!,
                                       curve: Curves.elasticOut,
                                     ),
+                                  ),
+                                  child: Container(
+                                    color: widget.indicatorColor,
                                   ),
                                 ),
                               ),
@@ -207,14 +210,11 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
                                   child: child,
                                 ),
                               ),
-                            ] as List<Widget>,
+                            ],
                           );
                         },
                       ),
                     ),
-                    elevation: widget.tabsElevation!,
-                    shadowColor: widget.tabsShadowColor,
-                    shape: BeveledRectangleBorder(),
                   ),
                   Expanded(
                     child: PageView.builder(
@@ -236,14 +236,14 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
 
                       // building pages
                       itemBuilder: (BuildContext? context, int? index) {
-                        return widget.contents![index!]!;
+                        return widget.contents![index!];
                       },
                     ),
                   ),
-                ] as List<Widget>,
+                ],
               ),
             ),
-          ] as List<Widget>,
+          ],
         ),
       ),
     );
@@ -251,7 +251,7 @@ class _VerticalTabsState extends State<VerticalTabs> with TickerProviderStateMix
 
   void _selectTab(index) {
     _selectedIndex = index;
-    for (AnimationController? animationController in animationControllers!) {
+    for (var animationController in animationControllers!) {
       animationController!.reset();
     }
     animationControllers![index]!.forward();
