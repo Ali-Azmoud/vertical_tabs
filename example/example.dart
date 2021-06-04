@@ -10,14 +10,10 @@ class Home extends StatelessWidget {
       title: 'Title',
       home: Scaffold(
         body: SafeArea(
-
           child: Column(
             children: <Widget>[
               Expanded(
                 child: Container(
-
-
-
                   child: VerticalTabs(
                     tabsWidth: 150,
                     tabs: <Tab>[
@@ -41,7 +37,8 @@ class Home extends StatelessWidget {
                       Tab(child: Text('CSS 3')),
                     ],
                     contents: <Widget>[
-                      tabsContent('Flutter', 'Change page by scrolling content is disabled in settings. Changing contents pages is only available via tapping on tabs'),
+                      tabsContent('Flutter',
+                          'Change page by scrolling content is disabled in settings. Changing contents pages is only available via tapping on tabs'),
                       tabsContent('Dart'),
                       tabsContent('Javascript'),
                       tabsContent('NodeJS'),
@@ -50,13 +47,12 @@ class Home extends StatelessWidget {
                           child: ListView.builder(
                               itemCount: 10,
                               itemExtent: 100,
-                              itemBuilder: (context, index){
+                              itemBuilder: (context, index) {
                                 return Container(
                                   margin: EdgeInsets.all(10),
                                   color: Colors.white30,
                                 );
-                              })
-                      ),
+                              })),
                       tabsContent('HTML 5'),
                       Container(
                           color: Colors.black12,
@@ -64,25 +60,18 @@ class Home extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: 10,
                               itemExtent: 100,
-                              itemBuilder: (context, index){
+                              itemBuilder: (context, index) {
                                 return Container(
                                   margin: EdgeInsets.all(10),
                                   color: Colors.white30,
                                 );
-                              })
-                      ),
+                              })),
                     ],
                   ),
-
-
-
                 ),
               ),
-
             ],
           ),
-
-
 
           /*child: Column(
             children: <Widget>[
@@ -185,7 +174,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget tabsContent(String caption, [ String description = '' ] ) {
+  Widget tabsContent(String caption, [String description = '']) {
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(20),
@@ -196,7 +185,10 @@ class Home extends StatelessWidget {
             caption,
             style: TextStyle(fontSize: 25),
           ),
-          Divider(height: 20, color: Colors.black45,),
+          Divider(
+            height: 20,
+            color: Colors.black45,
+          ),
           Text(
             description,
             style: TextStyle(fontSize: 15, color: Colors.black87),
